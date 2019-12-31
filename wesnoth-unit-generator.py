@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from tkinter import *
 from tkinter.ttk import *
 
@@ -8,9 +9,9 @@ class Application(Frame):
         self.pack()
         self.createWidgets()
         # self.var = var
-        self.amla_var = StringVar()
+        self.amla_var = BooleanVar()
         self.amla_var.set(1)
-        self.amla = "Yes"
+        self.amla = ""
 
 #    def say_hi(self):
 #        print("Hi, there, everyone!")
@@ -146,8 +147,11 @@ class Application(Frame):
         self.enter_advances.grid(row=6, column=2, columnspan=2)
 
         # unit description
-        self.enter_desc = Entry(self)
-        self.enter_desc.insert(0, "Enter Unit Description")
+        self.enter_desc = Text(self)
+        self.enter_desc['height'] = 10
+        self.enter_desc['width'] = 22
+        self.enter_desc['font'] = "courier"
+        self.enter_desc.insert(INSERT,"Enter Unit Description")
         self.enter_desc.grid(row=9, column=2, columnspan=2)
 
         # unit level
@@ -156,16 +160,22 @@ class Application(Frame):
         self.enter_level.grid(row=10, column=2, columnspan=2)
 
         # file name
-        self.enter_filename = Entry(self)
-        self.enter_filename.insert(0, "generic_unit")
-        self.enter_filename.grid(row=11, column=1, columnspan=2)
+        # self.enter_filename = Entry(self)
+        # self.enter_filename.insert(0, "generic_unit")
+        # self.enter_filename.grid(row=11, column=1, columnspan=2)
 
     def createUnit(self):
         # indicate that I created a file
         print("Unit file has been Created.")
-        unit_file_name = self.enter_filename.get()
+
+        # not sure why this message box wont
+        # pop up
+        # self.response = self.messagebox.showinfo("Status:", "Unit file has been Created.")
+        
+        unit_file_name = self.enter_id.get()
+        unit_file_name = unit_file_name.replace(" ","_")
         with open('{n}.cfg'.format(n=unit_file_name),'w') as unitfile:
-            unitfile.write("[unit_type]\n")
+            unitfile.write("\n[unit_type]\n")
             # bulk code here
 
             # unit id
@@ -173,7 +183,7 @@ class Application(Frame):
             unitfile.write(unit_id_final)
 
             # unit name
-            unit_name_final = '    name = "' + self.enter_name.get() + '"\n'
+            unit_name_final = '    name = _ "' + self.enter_name.get() + '"\n'
             unitfile.write(unit_name_final)
 
             # unit race
@@ -204,11 +214,9 @@ class Application(Frame):
             unit_advances_final = '    advances_to = "' + self.enter_advances.get() + '"\n'
             unitfile.write(unit_advances_final)
 
-            # add code for AMLA_DEFAULT
-            # enabler here
 
             # unit description
-            unit_desc_final = '    description = "' + self.enter_desc.get() + '"\n'
+            unit_desc_final = '    description = _ "' + self.enter_desc.get("0.0",END) + '"\n'
             unitfile.write(unit_desc_final)
 
             # conclude it with
@@ -222,7 +230,9 @@ class Application(Frame):
 def main():
     root = Tk()
     root.title("Wesnoth Unit File Creator")
-    root.geometry("400x320")
+    root.geometry("400x400")
+    # preventing a resize
+    root.resizable(False, False)
 
     # global var
 
