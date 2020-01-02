@@ -103,6 +103,11 @@ class Application(Frame):
         self.label_advances['text'] = "Advances To:"
         self.label_advances.grid(row=6, column=0, columnspan=2)
 
+        # unit gender
+        self.label_gender = Label(self)
+        self.label_gender['text'] = "Gender:"
+        self.label_gender.grid(row=8, column=0,columnspan=2)
+
         self.label_desc = Label(self)
         self.label_desc['text'] = "Unit Description:"
         self.label_desc.grid(row=9, column=0, columnspan=2)
@@ -141,6 +146,11 @@ class Application(Frame):
         self.enter_advances = Entry(self)
         self.enter_advances.insert(0, "Enter Advancing Unit ID")
         self.enter_advances.grid(row=6, column=2, columnspan=2)
+
+        # unit gender
+        self.enter_gender = Entry(self)
+        self.enter_gender.insert(0, "Enter Unit Gender/Sex")
+        self.enter_gender.grid(row=8, column=2, columnspan=2)
 
         # unit description
         self.enter_desc = Text(self)
@@ -190,6 +200,10 @@ class Application(Frame):
             unit_hp_final = '    hitpoints = ' + self.enter_hp.get() + '\n'
             unitfile.write(unit_hp_final)
 
+            # unit gender
+            unit_gender_final = '    gender = "' + self.enter_gender.get() + '"\n'
+            unitfile.write(unit_gender_final)
+
             # unit xp
             unit_xp_final = '    experience = ' + self.enter_xp.get() + '\n'
             unitfile.write(unit_xp_final)
@@ -226,7 +240,7 @@ class Application(Frame):
 def main():
     root = Tk()
     root.title("Wesnoth Unit File Creator")
-    root.geometry("400x400")
+    root.geometry("400x430")
     # preventing a resize
     root.resizable(False, False)
 
