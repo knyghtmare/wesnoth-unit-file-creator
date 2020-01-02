@@ -8,8 +8,7 @@ class Application(Frame):
         Frame.__init__(self, master)
         self.pack()
         self.createWidgets()
-        # self.var = var
-        self.amla_var = BooleanVar()
+        self.amla_var = BooleanVar(self)
         self.amla_var.set(1)
         self.amla = ""
 
@@ -42,11 +41,6 @@ class Application(Frame):
         # add AMLA enabler
         self.addAMLAcheckbox()
 
-        # sample hello button
-        # self.hi_there = Button(self)
-        # self.hi_there["text"] = "Hello"
-        # self.hi_there["command"] = self.say_hi
-        # self.hi_there.pack()
         self.createunit = Button(self)
         self.createunit['text'] = "Create Unit"
         # self.createunit['fg'] = "green"
@@ -61,7 +55,7 @@ class Application(Frame):
 
         self.check_amla = Checkbutton(self)
         self.check_amla['text'] = "Enabled"
-        # self.check_amla['var'] = self.amla_var
+#        self.check_amla['variable'] = self.amla_var
         self.check_amla['command'] = self.check_func
         self.check_amla.grid(row=7, column=2, columnspan=2)
 
@@ -76,15 +70,11 @@ class Application(Frame):
         # unit id
         self.label_id = Label(self)
         self.label_id['text'] = "ID:"
-        # self.label_id['pady'] = 1
-        # self.label_id['padx'] = 1
         self.label_id.grid(row = 1, column = 0, columnspan=2)
 
         # unit name
         self.label_name = Label(self)
         self.label_name['text'] = "Name:"
-        # self.label_name['pady'] = 1
-        # self.label_name['padx'] = 1
         self.label_name.grid(row=2, column=0, columnspan=2)
 
         # unit race
@@ -206,9 +196,9 @@ class Application(Frame):
                 amla_default = '    {AMLA_DEFAULT}' + '\n'
                 unitfile.write(amla_default)
             elif self.amla == "No":
-                pass
-            else:
-                pass
+                amla_default = '\n'
+                unitfile.write(amla_default)
+
 
             # unit advances_to
             unit_advances_final = '    advances_to = "' + self.enter_advances.get() + '"\n'
@@ -234,7 +224,6 @@ def main():
     # preventing a resize
     root.resizable(False, False)
 
-    # global var
 
     # instantiate the class
     app = Application(master=root)
