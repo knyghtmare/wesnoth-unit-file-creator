@@ -55,7 +55,13 @@ class Application(Frame):
 
         self.check_amla = Checkbutton(self)
         self.check_amla['text'] = "Enabled"
-#        self.check_amla['variable'] = self.amla_var
+        # error handling
+        try:
+            self.check_amla['variable'] = self.amla_var
+        except AttributeError as e:
+            # show message at terminal
+            # but allow program to still compile
+            print(e)
         self.check_amla['command'] = self.check_func
         self.check_amla.grid(row=7, column=2, columnspan=2)
 
