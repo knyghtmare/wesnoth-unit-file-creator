@@ -7,23 +7,23 @@ class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.pack()
-        self.createWidgets()
         self.amla_var = BooleanVar(self)
         self.amla_var.set(1)
         self.amla = ""
+        self.createWidgets()
 
 #    def say_hi(self):
 #        print("Hi, there, everyone!")
 
     def createWidgets(self):
         # the frame for the main body
-       
+
         self.frame = Labelframe(self)
         self.frame['text'] = "** Main Stats **"
-        self.frame['width'] = 350
-        self.frame['height'] = 20
+        self.frame['width'] = 420
+        self.frame['height'] = 450
         self.frame.grid(row=0, column=0, rowspan=1, columnspan=4, padx=10, pady=2)
-        
+
         # the quit button
         self.qt_btn = Button(self)
         self.qt_btn['text'] = "Quit"
@@ -49,11 +49,11 @@ class Application(Frame):
 
     def addAMLAcheckbox(self):
         # the label
-        self.label_amla = Label(self)
+        self.label_amla = Label(self.frame)
         self.label_amla['text'] = "Enable AMLA?"
         self.label_amla.grid(row=7, column=0, columnspan=2)
 
-        self.check_amla = Checkbutton(self)
+        self.check_amla = Checkbutton(self.frame)
         self.check_amla['text'] = "Enabled"
         # error handling
         try:
@@ -74,86 +74,86 @@ class Application(Frame):
 
     def addMainLabels(self):
         # unit id
-        self.label_id = Label(self)
+        self.label_id = Label(self.frame)
         self.label_id['text'] = "ID:"
         self.label_id.grid(row = 1, column = 0, columnspan=2)
 
         # unit name
-        self.label_name = Label(self)
+        self.label_name = Label(self.frame)
         self.label_name['text'] = "Name:"
         self.label_name.grid(row=2, column=0, columnspan=2)
 
         # unit race
-        self.label_race = Label(self)
+        self.label_race = Label(self.frame)
         self.label_race['text'] = "Race:"
         self.label_race.grid(row=3, column=0, columnspan=2)
 
         # unit hitpoints
-        self.label_hp = Label(self)
+        self.label_hp = Label(self.frame)
         self.label_hp['text'] = "Hitpoints:"
         self.label_hp.grid(row=4, column=0, columnspan=2)
 
         # unit experience
-        self.label_xp = Label(self)
+        self.label_xp = Label(self.frame)
         self.label_xp['text'] = "Experience:"
         self.label_xp.grid(row=5, column=0, columnspan=2)
 
         # unit advances_to
-        self.label_advances = Label(self)
+        self.label_advances = Label(self.frame)
         self.label_advances['text'] = "Advances To:"
         self.label_advances.grid(row=6, column=0, columnspan=2)
 
         # unit gender
-        self.label_gender = Label(self)
+        self.label_gender = Label(self.frame)
         self.label_gender['text'] = "Gender:"
         self.label_gender.grid(row=8, column=0,columnspan=2)
 
-        self.label_desc = Label(self)
+        self.label_desc = Label(self.frame)
         self.label_desc['text'] = "Unit Description:"
         self.label_desc.grid(row=9, column=0, columnspan=2)
 
-        self.label_level = Label(self)
+        self.label_level = Label(self.frame)
         self.label_level['text'] = "Unit Level:"
         self.label_level.grid(row=10, column=0, columnspan=2)
 
     def addEntryFields(self):
         # unit id
-        self.enter_id = Entry(self)
+        self.enter_id = Entry(self.frame)
         self.enter_id.insert(0, "Enter Unit ID")
         self.enter_id.grid(row=1, column=2, columnspan=2)
 
         # unit name
-        self.enter_name = Entry(self)
+        self.enter_name = Entry(self.frame)
         self.enter_name.insert(0, "Enter Unit Name")
         self.enter_name.grid(row=2, column=2, columnspan=2)
 
         # unit race
-        self.enter_race = Entry(self)
+        self.enter_race = Entry(self.frame)
         self.enter_race.insert(0, "Enter Unit Race")
         self.enter_race.grid(row=3, column=2, columnspan=2)
 
         # unit HP
-        self.enter_hp = Entry(self)
+        self.enter_hp = Entry(self.frame)
         self.enter_hp.insert(0, "Enter Unit Hitpoints")
         self.enter_hp.grid(row=4, column=2, columnspan=2)
 
         # unit XP
-        self.enter_xp = Entry(self)
+        self.enter_xp = Entry(self.frame)
         self.enter_xp.insert(0, "Enter Unit XP")
         self.enter_xp.grid(row=5, column=2, columnspan=2)
 
         # unit advances_to
-        self.enter_advances = Entry(self)
+        self.enter_advances = Entry(self.frame)
         self.enter_advances.insert(0, "Enter Advancing Unit ID")
         self.enter_advances.grid(row=6, column=2, columnspan=2)
 
         # unit gender
-        self.enter_gender = Entry(self)
+        self.enter_gender = Entry(self.frame)
         self.enter_gender.insert(0, "Enter Unit Gender/Sex")
         self.enter_gender.grid(row=8, column=2, columnspan=2)
 
         # unit description
-        self.enter_desc = Text(self)
+        self.enter_desc = Text(self.frame)
         self.enter_desc['height'] = 10
         self.enter_desc['width'] = 22
         self.enter_desc['font'] = "courier"
@@ -161,7 +161,7 @@ class Application(Frame):
         self.enter_desc.grid(row=9, column=2, columnspan=2)
 
         # unit level
-        self.enter_level = Entry(self)
+        self.enter_level = Entry(self.frame)
         self.enter_level.insert(0, "Enter Unit Level")
         self.enter_level.grid(row=10, column=2, columnspan=2)
 
@@ -177,7 +177,7 @@ class Application(Frame):
         # not sure why this message box wont
         # pop up
         # self.response = self.messagebox.showinfo("Status:", "Unit file has been Created.")
-        
+
         unit_file_name = self.enter_id.get()
         unit_file_name = unit_file_name.replace(" ","_")
         with open('{n}.cfg'.format(n=unit_file_name),'w') as unitfile:
@@ -240,7 +240,7 @@ class Application(Frame):
 def main():
     root = Tk()
     root.title("Wesnoth Unit File Creator")
-    root.geometry("400x430")
+    root.geometry("420x450")
     # preventing a resize
     root.resizable(False, False)
 
